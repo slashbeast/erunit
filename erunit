@@ -57,8 +57,8 @@ runit_runsvdir_stop() {
     fi
 
     cd "${SVDIR}"
-    sv -w 120 force-stop ./*
-    sv exit ./*
+    sv -w 120 force-stop ./* || true
+    sv exit ./* || true
     kill "${pid}"
     rm -f "${workdir}/runsvdir.pid"
     echo 'Stopped.'
