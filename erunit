@@ -156,11 +156,16 @@ runit_init() {
 }
 
 
+runit_log() {
+    tail -n 256 -f "${services_available}/$1/log/current"
+}
+
+
 case "$1" in
     start|stop|up|down|reload|restart|shutdown|force-stop|force-reload|force-restart|force-shutdown|try-restart)
         runit_sv_passthru "$1" "$2"
     ;;
-    enable|disable|list|runsvdir-start|runsvdir-stop|status|new|init)
+    enable|disable|list|runsvdir-start|runsvdir-stop|status|new|init|log)
         option="${1//-/_}"
         shift
         runit_"${option}" "$@"
